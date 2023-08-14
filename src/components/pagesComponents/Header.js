@@ -12,7 +12,7 @@ function Header() {
             <NavLink to="/" className="nav-link">Home</NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to="/categories" className="nav-link">Categories</NavLink>
+            <NavLink to="/books" className="nav-link">Books</NavLink>
           </li>
         </ul>
       </nav>

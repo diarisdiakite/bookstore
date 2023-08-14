@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function NotFoundPage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate('/');
+    }, 10000);
+  });
+
   return (
-    <div>NotFoundPage</div>
+    <div className="main-container">
+      <h2>This Page is not found</h2>
+      <p>
+        Please contact us at
+        <strong> diarisdiakite@gmail.com</strong>
+      </p>
+    </div>
   );
 }
 
