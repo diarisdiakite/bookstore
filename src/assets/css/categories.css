@@ -1,0 +1,27 @@
+:root {
+  --my-orange: orange;
+  --my-lightGray: rgb(241, 241, 241);
+  --my-gray: rgb(191, 189, 189);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  width: 90vw;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.category {
+  width: 100%;
+  height: 80vh;
+  margin: 3% auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
