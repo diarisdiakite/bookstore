@@ -30,3 +30,7 @@
   width: 33%;
   height: 20%;
 }
+
+.add-book-form {
+  display: flex;
+}
