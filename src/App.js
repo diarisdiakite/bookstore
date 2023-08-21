@@ -8,6 +8,7 @@ import Book from './components/pages/Book';
 import BooksList from './components/pages/BooksList';
 import AddNewBookForm from './components/pages/AddNewBookForm';
 import CategoriesList from './components/pages/CategoriesList';
+import Category from './components/pages/Category';
 import NotFoundPage from './components/pages/NotFoundPage';
 
 function App() {
@@ -32,7 +33,10 @@ function App() {
           <Route path=":bookId" element={<Book HandleDelete={HandleDelete} />} />
           <Route path="new" element={<AddNewBookForm />} />
         </Route>
-        <Route path="/categories" element={<CategoriesList />} />
+        <Route path="/categories">
+          <Route index element={<CategoriesList />} />
+          <Route path=":categoryId" element={<Category />} />
+        </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

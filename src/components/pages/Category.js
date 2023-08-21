@@ -17,7 +17,7 @@ function Category() {
       <h2 key={categoryId}>
         {category?.name}
         (
-        {category?.totalBooksInCategory}
+        {categoryBooks.length}
         )
       </h2>
       {categoryBooks.map((book) => (
