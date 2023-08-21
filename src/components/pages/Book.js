@@ -8,9 +8,7 @@ import { removeBook, updateBook, selectBookById } from '../../redux/books/booksS
 function Book() {
   const dispatch = useDispatch();
   const { bookId } = useParams();
-  console.log(bookId);
   const book = useSelector((state) => selectBookById(state, Number(bookId)));
-  console.log(book);
   return (
     <div className="main-container">
       <div className="book-card">
