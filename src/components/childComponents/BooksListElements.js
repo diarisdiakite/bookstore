@@ -2,10 +2,11 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { removeBook, updateBook } from '../../redux/books/booksSlice';
+import { removeBook } from '../../redux/books/booksSlice';
 
 function BooksListElements({ books }) {
   const dispatch = useDispatch();
+  // const { bookId } = useParams();
   return (
     <div className="main-container">
       {books.map((book) => (
@@ -29,15 +30,8 @@ function BooksListElements({ books }) {
               </div>
               <button
                 type="button"
-                aria-label="Update book"
-                onClick={() => dispatch(updateBook())}
-              >
-                Update the book
-              </button>
-              <button
-                type="button"
                 aria-label="Remove book"
-                onClick={() => dispatch(removeBook())}
+                onClick={() => dispatch(removeBook(book.id))}
               >
                 Remove the book
               </button>
@@ -52,13 +46,13 @@ function BooksListElements({ books }) {
 BooksListElements.propTypes = {
   books: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       author: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
       year: PropTypes.number,
       chapters: PropTypes.number,
-      pages: PropTypes.number.isRequired,
+      pages: PropTypes.number,
     }),
   ).isRequired,
 };
