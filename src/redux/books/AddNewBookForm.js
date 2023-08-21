@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { nanoid } from '@reduxjs/toolkit';
-import { addBook } from '../../redux/books/booksSlice';
+import { addBook } from './booksSlice';
 
 function AddNewBookFormExtended() {
   // const books = useSelector(selectAllBooks);

@@ -3,13 +3,13 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { removeBook, updateBook, selectBookById } from '../../redux/books/booksSlice';
+import { removeBook, updateBook, selectBookById } from './booksSlice';
 
 function Book() {
   const dispatch = useDispatch();
   const { bookId } = useParams();
   const book = useSelector((state) => selectBookById(state, bookId));
-  console.log(book);
+
   return (
     <div className="main-container">
       <div className="book-card">

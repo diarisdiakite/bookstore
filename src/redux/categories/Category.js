@@ -1,17 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
-import { selectCategoryById } from '../../redux/categories/categoriesSlice';
-import { selectBooksByCategory } from '../../redux/books/booksSlice';
+import { selectCategoryById } from './categoriesSlice';
+import { selectBooksByCategory } from '../books/booksSlice';
 
 function Category() {
   const { categoryId } = useParams();
-  console.log(categoryId);
+
   const category = useSelector((state) => selectCategoryById(state, Number(categoryId)));
-  console.log(category);
   const categoryBooks = useSelector((state) => selectBooksByCategory(state, Number(categoryId)));
-  console.log(categoryBooks);
-  // const categoryName = {category?.name}
+
   const content = (
     <div>
       <h2 key={categoryId}>

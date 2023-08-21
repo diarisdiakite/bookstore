@@ -1,14 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selectAllCategories } from '../../redux/categories/categoriesSlice';
-import { selectBooksByCategory } from '../../redux/books/booksSlice';
+import { selectAllCategories } from './categoriesSlice';
+import { selectBooksByCategory } from '../books/booksSlice';
 
 function CategoriesList() {
   const { categoryId } = useParams();
   const categories = useSelector(selectAllCategories);
 
   const categoryBooks = useSelector((state) => selectBooksByCategory(state, Number(categoryId)));
-  console.log(categoryBooks);
 
   const content = categories.map((category) => (
     <div key={category.id}>

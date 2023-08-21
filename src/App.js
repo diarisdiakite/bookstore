@@ -5,11 +5,11 @@ import {
 import './assets/css/books.css';
 import Header from './components/pagesComponents/Header';
 import Home from './components/pages/Home';
-import Book from './components/pages/Book';
-import BooksList from './components/pages/BooksList';
-import AddNewBookForm from './components/pages/AddNewBookForm';
-import CategoriesList from './components/pages/CategoriesList';
-import Category from './components/pages/Category';
+import Book from './redux/books/Book';
+import BooksList from './redux/books/BooksList';
+import AddNewBookForm from './redux/books/AddNewBookForm';
+import CategoriesList from './redux/categories/CategoriesList';
+import Category from './redux/categories/Category';
 import NotFoundPage from './components/pages/NotFoundPage';
 
 function App() {

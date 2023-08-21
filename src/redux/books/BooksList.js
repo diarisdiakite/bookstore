@@ -4,14 +4,11 @@ import { useSelector } from 'react-redux';
 import {
   selectAllBooks,
   removeBook, updateBook,
-} from '../../redux/books/booksSlice';
-import BooksListElements from '../childComponents/BooksListElements';
+} from './booksSlice';
+import BooksListElements from '../../components/childComponents/BooksListElements';
 
 function BooksList() {
   const books = useSelector(selectAllBooks);
-  console.log('books with selectAllBooks', books);
-  const books1 = useSelector((state) => state.books.books);
-  console.log('books with useSelector', books1);
 
   const HandleDelete = (id) => {
     removeBook(id);
