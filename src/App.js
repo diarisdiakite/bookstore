@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter, Routes, Route,
 } from 'react-router-dom';
+import './assets/css/books.css';
 import Header from './components/pagesComponents/Header';
 import Home from './components/pages/Home';
 import Book from './components/pages/Book';

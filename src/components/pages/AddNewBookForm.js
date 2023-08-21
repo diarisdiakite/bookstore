@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { nanoid } from '@reduxjs/toolkit';
 import { addBook } from '../../redux/books/booksSlice';
 
 function AddNewBookFormExtended() {
   // const books = useSelector(selectAllBooks);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [newBook, setNewBook] = useState({
     id: nanoid(),
     title: '',
@@ -38,6 +40,7 @@ function AddNewBookFormExtended() {
       chapters: '',
       pages: '',
     });
+    navigate('/books');
   };
 
   return (
@@ -81,7 +84,7 @@ function AddNewBookFormExtended() {
         <label htmlFor="description">
           Description
           <input
-            type="text"
+            type="text-area"
             name="description"
             value={newBook.description}
             onChange={HandleInputChange}
