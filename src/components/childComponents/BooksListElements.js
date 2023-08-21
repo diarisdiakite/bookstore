@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { removeBook, updateBook } from '../../redux/books/booksSlice';
+import { removeBook } from '../../redux/books/booksSlice';
 
 function BooksListElements({ books }) {
   const dispatch = useDispatch();
@@ -28,13 +28,6 @@ function BooksListElements({ books }) {
                   {book.pages}
                 </p>
               </div>
-              <button
-                type="button"
-                aria-label="Update book"
-                onClick={() => dispatch(updateBook(book.id))}
-              >
-                Update the book
-              </button>
               <button
                 type="button"
                 aria-label="Remove book"
