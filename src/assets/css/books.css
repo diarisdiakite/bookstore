@@ -36,6 +36,7 @@
   width: 100%;
   height: 33%;
   display: flex;
+
   /* flex-direction: column; */
 }
 
@@ -43,7 +44,7 @@
   flex-direction: column;
 }
 
-form{
+form {
   width: 100%;
 }
 
