@@ -3,10 +3,11 @@ import {
   BrowserRouter, Routes, Route,
 } from 'react-router-dom';
 import Header from './components/pagesComponents/Header';
-import HomePage from './components/pages/HomePage';
-import BookPage from './components/pages/BookPage';
-import BooksListPage from './components/pages/BooksListPage';
+import Home from './components/pages/Home';
+import Book from './components/pages/Book';
+import BooksList from './components/pages/BooksList';
 import AddNewBookForm from './components/pages/AddNewBookForm';
+import CategoriesList from './components/pages/CategoriesList';
 import NotFoundPage from './components/pages/NotFoundPage';
 
 function App() {
@@ -25,12 +26,13 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Home />} />
         <Route path="/books">
-          <Route index element={<BooksListPage HandleDelete={HandleDelete} />} />
-          <Route path=":id" element={<BookPage HandleDelete={HandleDelete} />} />
+          <Route index element={<BooksList HandleDelete={HandleDelete} />} />
+          <Route path=":bookId" element={<Book HandleDelete={HandleDelete} />} />
           <Route path="new" element={<AddNewBookForm />} />
         </Route>
+        <Route path="/categories" element={<CategoriesList />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
