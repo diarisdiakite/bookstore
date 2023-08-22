@@ -12,6 +12,8 @@ import CategoriesList from './redux/categories/CategoriesList';
 import Category from './redux/categories/Category';
 import NotFoundPage from './components/pages/NotFoundPage';
 
+// import { removeBook, updateBook } from './redux/books/booksSlice';
+
 function App() {
   const books = useState(JSON.parse(localStorage.getItem('books')) || []);
 
@@ -19,19 +21,14 @@ function App() {
     localStorage.setItem('books', JSON.stringify(books));
   }, [books]);
 
-  const HandleDelete = (id) => {
-    const listBooks = books.filter((book) => book.id !== id);
-    localStorage.setItem(listBooks, JSON.stringify(books));
-  };
-
   return (
     <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books">
-          <Route index element={<BooksList HandleDelete={HandleDelete} />} />
-          <Route path=":bookId" element={<Book HandleDelete={HandleDelete} />} />
+          <Route index element={<BooksList />} />
+          <Route path=":bookId" element={<Book />} />
           <Route path="new" element={<AddNewBookForm />} />
         </Route>
         <Route path="/categories">

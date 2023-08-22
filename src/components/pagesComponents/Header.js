@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 function Header() {
   return (
     <div className="header">
-      <h1 className="title">Bookstore</h1>
+      <h1 className="title">Bookstore CMS</h1>
       <nav>
         <ul className="nav-container">
           <li className="nav-item">

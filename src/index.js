@@ -5,6 +5,8 @@ import { Provider } from 'react-redux';
 import App from './App';
 import store from './redux/store';
 
+// console.log('initial state', store.getState());
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
