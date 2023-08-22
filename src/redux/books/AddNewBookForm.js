@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { nanoid } from '@reduxjs/toolkit';
-import { addBook } from './booksSlice';
+import { addNewBook } from './booksSlice';
+// import { useNavigate } from 'react-router-dom';
 
-function AddNewBookFormExtended() {
-  // const books = useSelector(selectAllBooks);
+function AddNewBookForm() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [newBook, setNewBook] = useState({
-    id: nanoid(),
+    item_id: nanoid(),
     title: '',
-    description: '',
-    author: '',
-    categoryId: '',
     category: '',
-    year: '',
-    chapters: '',
-    pages: '',
+    author: '',
   });
+
+  const HandleSubmit = () => {
+    dispatch(addNewBook(newBook));
+    setNewBook({
+      id: nanoid(),
+      title: '',
+      category: '',
+      author: '',
+    });
+  };
 
   const HandleInputChange = (e) => {
     const { name, value } = e.target;
@@ -28,116 +32,40 @@ function AddNewBookFormExtended() {
     }));
   };
 
-  const HandleAddBook = () => {
-    dispatch(addBook(newBook));
-    setNewBook({
-      title: '',
-      description: '',
-      author: '',
-      categoryId: '',
-      category: '',
-      year: '',
-      chapters: '',
-      pages: '',
-    });
-    navigate('/books');
-  };
-
   return (
-    <div className="main-container">
-      <p>Add a New Book </p>
-      <form action="" className="add-book-form">
-        <label htmlFor="categoryId">
-          CategoryId
-          <input
-            type="number"
-            name="categoryId"
-            value={newBook.categoryId}
-            onChange={HandleInputChange}
-            id="categoryId"
-          />
-        </label>
+    <div className="">
+      <h2>Add a New Book </h2>
+      <form action="" className="add-book-form" onSubmit={HandleSubmit}>
 
-        <label htmlFor="category">
-          category
-          <input
-            type="text"
-            name="category"
-            value={newBook.category}
-            onChange={HandleInputChange}
-            placeholder="Add the new book category"
-          />
-        </label>
+        <input
+          type="hidden"
+          value={newBook.item_id}
+          name="item_id"
+        />
 
-        <label htmlFor="title">
-          Title
-          <input
-            type="text"
-            name="title"
-            value={newBook.title}
-            onChange={HandleInputChange}
-            placeholder="Add the new book title"
-            id="title"
-          />
-        </label>
+        <input
+          className="form-title"
+          type="text"
+          name="title"
+          value={newBook.title}
+          onChange={HandleInputChange}
+          placeholder="Add the new book title"
+          id="title"
+        />
 
-        <label htmlFor="description">
-          Description
-          <input
-            type="text-area"
-            name="description"
-            value={newBook.description}
-            onChange={HandleInputChange}
-            placeholder="Add the new book Description"
-          />
-        </label>
-
-        <label htmlFor="author">
-          Author
-          <input
-            type="text"
-            name="author"
-            value={newBook.author}
-            onChange={HandleInputChange}
-            placeholder="Add the book author"
-            id="author"
-          />
-        </label>
-
-        <label htmlFor="year">
-          Year of publication
-          <input
-            type="number"
-            name="year"
-            value={newBook.year}
-            onChange={HandleInputChange}
-            placeholder="Add the year of pyblication"
-          />
-        </label>
-        <label htmlFor="chapters">
-          Number of Chapters
-          <input
-            type="number"
-            name="chapters"
-            value={newBook.chapters}
-            onChange={HandleInputChange}
-            id="chapters"
-          />
-        </label>
-        <label htmlFor="pages">
-          Number of pages
-          <input
-            type="number"
-            name="pages"
-            value={newBook.pages}
-            onChange={HandleInputChange}
-            id="pages"
-          />
-        </label>
+        <input
+          className="form-category"
+          type="text"
+          name="category"
+          value={newBook.category}
+          onChange={HandleInputChange}
+          placeholder="Add the new book category"
+        />
 
         <button
           type="button"
-          onClick={HandleAddBook}
+          className="form-button"
+          onClick={HandleSubmit}
         >
           Submit
         </button>
@@ -147,4 +75,19 @@ function AddNewBookFormExtended() {
   );
 }
 
-export default AddNewBookFormExtended;
+/* AddNewBookForm.propTypes = {
+  newBook: PropTypes.shape({
+    item_id: PropTypes.string,
+    title: PropTypes.string,
+    category: PropTypes.string,
+    author: PropTypes.string,
+  }),
+  setNewBook: PropTypes.func,
+};
+
+AddNewBookForm.defaultProps = {
+  newBook: {},
+  setNewBook: () => {},
+}; */
+
+export default AddNewBookForm;
