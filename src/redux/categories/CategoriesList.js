@@ -1,13 +1,11 @@
-import { Link, useParams } from 'react-router-dom';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { selectAllCategories } from './categoriesSlice';
-import { selectBooksByCategory } from '../books/booksSlice';
 
 function CategoriesList() {
-  const { categoryId } = useParams();
   const categories = useSelector(selectAllCategories);
-
-  const categoryBooks = useSelector((state) => selectBooksByCategory(state, Number(categoryId)));
+  console.log(categories);
 
   const content = categories.map((category) => (
     <div key={category.id}>
@@ -16,8 +14,7 @@ function CategoriesList() {
           {category.name}
           {' '}
           (
-          {/* calculate category length */}
-          {categoryBooks.length}
+          {category.totalBooksInCategory}
           )
         </Link>
       </h2>
