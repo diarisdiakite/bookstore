@@ -40,10 +40,6 @@ nav {
   border-right: 1px solid black;
 }
 
-/* .nav-item:last-child {
-  border-right: none;
-}
- */
 .nav-link {
   text-decoration: none;
   width: 100%;

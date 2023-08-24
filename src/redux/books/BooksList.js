@@ -5,7 +5,7 @@ import {
   selectAllBooksIds,
   updateBook,
   fetchBooks,
-  deleteBook, /* addNewBook, */
+  deleteBook,
 } from './booksSlice';
 import BooksListElements from './childComponents/BooksListElements';
 import AddNewBookForm from './AddNewBookForm';
@@ -36,7 +36,6 @@ function BooksList() {
   return (
     <div className="">
       {' '}
-      {/* main-container */}
       { books.loading && <p>...loading</p> }
       { !books.loading && books.error ? (
         <p>

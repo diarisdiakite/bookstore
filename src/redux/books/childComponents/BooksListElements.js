@@ -26,7 +26,6 @@ function BooksListElements({ books }) {
                     type="button"
                     className="button-white"
                     aria-label="Update book"
-                    // onClick={}
                   >
                     | Update the book |
                   </button>

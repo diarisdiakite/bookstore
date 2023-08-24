@@ -4,7 +4,6 @@ import { nanoid } from '@reduxjs/toolkit';
 import { addBook } from './booksSlice';
 
 function AddNewBookFormExtended() {
-  // const books = useSelector(selectAllBooks);
   const dispatch = useDispatch();
   const [newBook, setNewBook] = useState({
     id: nanoid(),

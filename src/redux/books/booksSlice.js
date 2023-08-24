@@ -107,8 +107,6 @@ const booksSlice = createSlice({
       state.books = [];
       state.error = action.error ? action.error.message : 'Unknown error occurred';
     });
-
-    // addNewBook cases*
     builder.addCase(addNewBook.pending, (state) => {
       state.loading = true;
     });
@@ -160,9 +158,7 @@ export const selectBookByTitle = (state, bookTitle) => state.books.books.find(
 export const selectBookById = (state, bookId) => state.books.books[bookId];
 
 export const selectBooksByCategory = createSelector(
-  // 1) find the category of the book in an array???
   [selectAllBooks, (_, categoryId) => categoryId],
-  // 2) find all the books of this category
   (books, categoryId) => books.filter((book) => book.categoryId === categoryId),
 );
 

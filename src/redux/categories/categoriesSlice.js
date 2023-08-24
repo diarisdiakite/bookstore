@@ -77,10 +77,6 @@ export const selectCategoryById = (state, categoryId) => state.categories.catego
   (category) => category.id === categoryId,
 );
 
-/* export const getTotalBooksInCategoryById = (state, categoryId) =>
-state.categories.categories[`${categoryId}`].totalBooksInCategory;
- */
-
 export const {
   addCategory, removeCategory, updateCategory, checkCategory,
   updateBooksBookAdded, updateBooksBookRemoved, countBooks,

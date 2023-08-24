@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { useNavigate } from 'react-router-dom';
 import { addNewBook } from './booksSlice';
-// import { useNavigate } from 'react-router-dom';
 
 function AddNewBookForm() {
   const dispatch = useDispatch();

@@ -6,28 +6,6 @@ import { selectCategoryById } from './categoriesSlice';
 import { selectAllBooks } from '../books/booksSlice';
 
 function Category() {
-  /*  const { categoryId } = useParams();
-  console.log(categoryId);
-  const category = useSelector((state) => selectCategoryById(state, Number(categoryId)));
-  console.log(category);
-
-  const selectBooksByCategory = createSelector(
-    [selectAllBooks, (_, categoryId) => categoryId],
-    (books, categoryId) => {
-      const booksbyCategory = Object.keys(books)
-        .filter((bookId) => books[bookId].category === categoryId)
-        .reduce((filteredBooks, bookId) => {
-          // eslint-disable-next-line no-param-reassign
-          filteredBooks[bookId] = { ...books[bookId] };
-          return filteredBooks;
-        }, {});
-      return booksbyCategory;
-    },
-  );
-  console.log(selectBooksByCategory);
-
-  const booksByCategory = useSelector(selectBooksByCategory);  */
-
   const { categoryId } = useParams();
   const category = useSelector((state) => selectCategoryById(state, categoryId));
 

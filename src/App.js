@@ -12,8 +12,6 @@ import CategoriesList from './redux/categories/CategoriesList';
 import Category from './redux/categories/Category';
 import NotFoundPage from './components/pages/NotFoundPage';
 
-// import { removeBook, updateBook } from './redux/books/booksSlice';
-
 function App() {
   const books = useState(JSON.parse(localStorage.getItem('books')) || []);
 
