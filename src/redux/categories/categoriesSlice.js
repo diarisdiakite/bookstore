@@ -5,25 +5,25 @@ const initialState = {
   loading: false,
   categories: [
     {
-      id: 1,
+      id: '1',
       name: 'Fiction',
       description: 'Category\'s description',
       totalBooksInCategory: 0,
     },
     {
-      id: 2,
+      id: '2',
       name: 'Nonfiction',
       description: 'Category\'s description',
       totalBooksInCategory: 0,
     },
     {
-      id: 3,
+      id: '3',
       name: 'Romantic',
       description: 'Category\'s description',
       totalBooksInCategory: 0,
     },
   ],
-  status: 'Under construction', // Check if the '' needs to be in the array or just returned
+  status: 'Under construction',
   error: '',
 };
 
@@ -59,15 +59,10 @@ const categoriesSlice = createSlice({
   extraReducers: (builders) => {
     builders.addCase(bookAdded, (state) => {
       state.totalBooksInCategory += 1;
-      // return state.totalBooksInCategory;
     });
     builders.addCase(bookRemoved, (state) => {
       state.totalBooksInCategory -= 1;
-      // return state.totalBooksInCategory;
     });
-    /* builders.addCase(fetchCategories.pending, (action) => {
-      state.loading = true;
-    }); */
   },
 
 });

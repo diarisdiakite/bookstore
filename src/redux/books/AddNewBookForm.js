@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
 import { addNewBook } from './booksSlice';
 // import { useNavigate } from 'react-router-dom';
 
 function AddNewBookForm() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [newBook, setNewBook] = useState({
     item_id: nanoid(),
     title: '',
@@ -22,6 +24,7 @@ function AddNewBookForm() {
       category: '',
       author: '',
     });
+    navigate('/books');
   };
 
   const HandleInputChange = (e) => {
@@ -33,7 +36,7 @@ function AddNewBookForm() {
   };
 
   return (
-    <div className="">
+    <div className="main-container">
       <h2>Add a New Book </h2>
       <form action="" className="add-book-form" onSubmit={HandleSubmit}>
 
@@ -62,6 +65,15 @@ function AddNewBookForm() {
           placeholder="Add the new book category"
         />
 
+        <input
+          className="form-category"
+          type="text"
+          name="author"
+          value={newBook.author}
+          onChange={HandleInputChange}
+          placeholder="Add the new book author"
+        />
+
         <button
           type="button"
           className="form-button"
@@ -74,20 +86,5 @@ function AddNewBookForm() {
     </div>
   );
 }
-
-/* AddNewBookForm.propTypes = {
-  newBook: PropTypes.shape({
-    item_id: PropTypes.string,
-    title: PropTypes.string,
-    category: PropTypes.string,
-    author: PropTypes.string,
-  }),
-  setNewBook: PropTypes.func,
-};
-
-AddNewBookForm.defaultProps = {
-  newBook: {},
-  setNewBook: () => {},
-}; */
 
 export default AddNewBookForm;
