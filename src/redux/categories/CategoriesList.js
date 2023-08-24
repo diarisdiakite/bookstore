@@ -5,7 +5,6 @@ import { selectAllCategories } from './categoriesSlice';
 
 function CategoriesList() {
   const categories = useSelector(selectAllCategories);
-  console.log(categories);
 
   const content = categories.map((category) => (
     <div key={category.id}>

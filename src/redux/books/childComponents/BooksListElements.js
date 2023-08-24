@@ -11,7 +11,6 @@ function BooksListElements({ books }) {
     <div className="main-container">
       {Object.entries(books).map(([bookId, bookArray]) => {
         const bookData = bookArray[0];
-        console.log('bookData', bookData);
         return (
           <div key={bookId}>
             <div className="book-card">

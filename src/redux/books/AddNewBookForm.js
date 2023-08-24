@@ -38,7 +38,7 @@ function AddNewBookForm() {
   return (
     <div className="main-container">
       <h2>Add a New Book </h2>
-      <form action="" className="add-book-form" onSubmit={HandleSubmit}>
+      <form action="" className="add-book-form">
 
         <input
           type="hidden"

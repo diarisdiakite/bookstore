@@ -41,7 +41,6 @@ export const addNewBook = createAsyncThunk('books/addNewBook', async (bookData) 
       ...bookData,
     };
     const response = await axios.post(FEATURE_URL, newBook);
-    console.log('Response from server:', response);
     if (!response) {
       return 'Sorry, could\'t fetch the Data';
     }
@@ -49,8 +48,6 @@ export const addNewBook = createAsyncThunk('books/addNewBook', async (bookData) 
       acc[book.id] = book;
       return acc;
     }, {});
-    console.log([...response.data]);
-    console.log(bookObject);
     return bookObject;
   } catch (err) {
     return err.message;
@@ -59,8 +56,7 @@ export const addNewBook = createAsyncThunk('books/addNewBook', async (bookData) 
 
 export const deleteBook = createAsyncThunk('books/deleteBook', async (bookId) => {
   try {
-    const response = await axios.delete(`${FEATURE_URL}/${bookId}`);
-    console.log(response.data);
+    await axios.delete(`${FEATURE_URL}/${bookId}`);
     return bookId;
   } catch (err) {
     return err.message;
@@ -98,9 +94,7 @@ const booksSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      const booksArray = Object.values(action.payload).flat();
       const itemIds = Object.keys(action.payload).map(String); // Changed from Number
-      console.log('boookArray---------------', booksArray);
       state.books = {
         itemIds,
         byId: action.payload,
@@ -122,7 +116,6 @@ const booksSlice = createSlice({
       const { id, ...bookData } = action.payload;
       state.books.itemIds.push(id);
       state.books.byId[id] = bookData;
-      console.log('id and bookData, not persited yet', id, bookData);
       localStorage.setItem('books', JSON.stringify(state.books));
       state.loading = false;
       state.error = '';
@@ -157,7 +150,6 @@ export const selectAllBooksIds = (state) => state.books.books.itemIds;
 
 export const selectBookByIdFromLocalStorage = (state, bookId) => {
   const storedBooks = JSON.parse(localStorage.getItem((state.books)));
-  console.log('------------ Books from localStorage --------------', storedBooks);
   return storedBooks.find((book) => book.id === bookId);
 };
 

@@ -17,9 +17,7 @@ function BooksList() {
   }, [dispatch]);
 
   const books = useSelector(selectAllBooks);
-  console.log('books with selectAllBooks', books);
   const bookIds = useSelector(selectAllBooksIds);
-  console.log('booksIds with selectAllBooksIds', bookIds);
 
   const HandleDelete = (bookId) => dispatch(deleteBook(bookId));
 

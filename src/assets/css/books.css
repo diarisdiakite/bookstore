@@ -2,16 +2,46 @@
   --my-orange: orange;
   --my-lightGray: rgb(241, 241, 241);
   --my-gray: rgb(191, 189, 189);
+
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
+body {
+  background-color: var(--my-lightGray);
+  min-height: 100vh;
+  top: 0%;
+}
+
+.button-white {
+  background-color: white;
+  border: none;
+  color: blue;
+}
+
+.button-blue {
+  background-color: blue;
+  border: none;
+  color: white;
+  text-decoration: none;
+}
+
 .container {
   width: 90vw;
-  height: 100vh;
+  height: 80vh;
   margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.book-list-container {
+  width: 90vw;
+  height: 80vh;
+  margin: 20% auto 0 auto;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -31,47 +61,63 @@
   width: 100%;
   height: 33%;
   display: flex;
-  /* flex-direction: column; */
+  background-color: white;
+  margin: 1% auto 0 auto;
+  padding: 0 0 3% 3%;
 }
 
-.book{
+.book {
   width: 50%;
 }
 
-.progress{
+.text {
+  box-sizing: content-box;
+  padding: 0;
+  margin-top: 5%;
+}
+
+.text h2,
+.text p {
+  padding: 0;
+  margin: 0;
+}
+
+.buttons {
+  margin-top: 5%;
+}
+
+.progress {
   width: 25%;
 }
 
-.current-chapter{
+.current-chapter {
   width: 25%;
 }
 
 .add-book-form {
   top: 10%;
   flex-direction: column;
+  background-color: var(--my-lightGray);
 }
 
 form {
   width: 100%;
+  display: flex;
 }
 
-label {
-  width: 100%;
-}
-
-input {
-  width: 100%;
-}
+/* input {
+  width: 90%;
+} */
 
 /* Simplified form */
 .form-title {
-  width: 60%;
+  width: 50%;
 }
 
 .form-category {
-  width: 20%;
+  width: 15%;
 }
 
 .form-button {
-  width: 20%;
+  width: 15%;
 }
