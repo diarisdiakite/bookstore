@@ -184,6 +184,6 @@ this application was build by [Didy](https://diarisdiakite.github.io/my-portfoli
 [`Back to top`](#readme-top)
 
 ## 📝 <a name="licence">License</a>
-This project is [MIT](https://mit-license.org/) licensed.
+This project is [MIT](./LICENSE) licensed.
 
 [`Back to top`](#readme-top)

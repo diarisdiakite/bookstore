@@ -1,77 +1,164 @@
-import { createSlice, createSelector } from '@reduxjs/toolkit';
+import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+const appId = 'otpoYVBmSxJWfZGJBIeq';
+export const FEATURE_URL = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appId}/books`;
 
 const initialState = {
-  loading: false,
-  books: [
-    {
-      id: '1',
-      title: 'The Great Gatsby',
-      author: 'John Smith',
-      category: 'Fiction',
-      categoryId: 1,
-      year: 1978,
-      chapters: 24,
-      pages: 389,
-    },
-    {
-      id: '2',
-      title: 'Anna Karenina',
-      author: 'Leo Tolstoy',
-      category: 'Fiction',
-      categoryId: 1,
-      year: 1978,
-      chapters: 24,
-      pages: 389,
-    },
-    {
-      id: '3',
-      title: 'The Selfish Gene',
-      author: 'Richard Dawkins',
-      category: 'Nonfiction',
-      categoryId: 2,
-      year: 1978,
-      chapters: 24,
-      pages: 389,
-    }],
-  error: '',
+  books: {
+    loading: false,
+    itemIds: [],
+    byId: {},
+    error: '',
+  },
+  numberOfBooks: 0,
 };
 
+export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
+  try {
+    const response = await axios.get(FEATURE_URL, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status >= 200 && response.status <= 300) {
+      return (response.data);
+    }
+    throw new Error('Failed to fetch books');
+  } catch (err) {
+    throw new Error(err.message);
+  }
+});
+
+/*
+  create addNewBook
+  handle the 3 states
+*/
+export const addNewBook = createAsyncThunk('books/addNewBook', async (bookData) => {
+  try {
+    const newBook = {
+      item_id: bookData.id,
+      ...bookData,
+    };
+    const response = await axios.post(FEATURE_URL, newBook);
+    if (!response) {
+      return 'Sorry, could\'t fetch the Data';
+    }
+    const bookObject = response.data.reduce((acc, book) => {
+      acc[book.id] = book;
+      return acc;
+    }, {});
+    return bookObject;
+  } catch (err) {
+    return err.message;
+  }
+});
+
+export const deleteBook = createAsyncThunk('books/deleteBook', async (bookId) => {
+  try {
+    await axios.delete(`${FEATURE_URL}/${bookId}`);
+    return bookId;
+  } catch (err) {
+    return err.message;
+  }
+});
+
 const booksSlice = createSlice({
-  name: 'book',
+  name: 'books',
   initialState,
 
   reducers: {
     addBook: (state, action) => {
-      state.books.push(action.payload);
+      const { id } = action.payload;
+      state.books.itemIds.push(id);
+      state.books.byId[id].push(action.payload);
+      localStorage.setItem('books', JSON.stringify(state.books));
     },
     removeBook: (state, action) => {
       const idToRemove = action.payload;
-      state.books = state.books.filter((book) => book.id !== idToRemove);
+      state.books.itemIds = state.books.itemIds.filter((id) => id !== idToRemove);
+      delete state.books.byId[idToRemove];
+      localStorage.setItem('books', JSON.stringify(state.books));
     },
     updateBook: (state, action) => {
-      const {
-        title, author, category,
-      } = action.payload;
-      const bookIndex = state.books.findIndex((book) => book.id === bookIndex);
-      if (bookIndex !== -1) {
-        state.books[bookIndex] = {
-          title, author, category,
-        };
-      }
+      const { bookId, updateBookData } = action.payload;
+      state.books.byId[bookId] = {
+        ...state.books.byId[bookId],
+        ...updateBookData,
+      };
+      localStorage.setItem('books', JSON.stringify(state.books));
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchBooks.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchBooks.fulfilled, (state, action) => {
+      const itemIds = Object.keys(action.payload).map(String); // Changed from Number
+      state.books = {
+        itemIds,
+        byId: action.payload,
+      };
+      state.loading = false;
+      state.error = '';
+    });
+    builder.addCase(fetchBooks.rejected, (state, action) => {
+      state.loading = false;
+      state.books = [];
+      state.error = action.error ? action.error.message : 'Unknown error occurred';
+    });
+    builder.addCase(addNewBook.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addNewBook.fulfilled, (state, action) => {
+      const { id, ...bookData } = action.payload;
+      state.books.itemIds.push(id);
+      state.books.byId[id] = bookData;
+      localStorage.setItem('books', JSON.stringify(state.books));
+      state.loading = false;
+      state.error = '';
+    });
+    builder.addCase(addNewBook.rejected, (state, action) => {
+      state.loading = false;
+      state.books = action.payload;
+      state.error = action.payload.message;
+    });
+    // deleteBook cases:pending, fulfilled, rejected
+    builder.addCase(deleteBook.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteBook.fulfilled, (state, action) => {
+      const idToRemove = action.payload;
+      state.books.itemIds = state.books.itemIds.filter((id) => id !== idToRemove);
+      delete state.books.byId[idToRemove];
+      state.loading = false;
+      state.error = '';
+    });
+    builder.addCase(deleteBook.rejected, (state, action) => {
+      state.loading = false;
+      state.books = action.payload;
+      state.error = action.payload.message;
+    });
   },
 });
 
-export const selectAllBooks = (state) => state.books.books;
+export const selectAllBooks = (state) => state.books.books.byId;
 
-export const selectBookById = (state, bookId) => state.books.books.find(
-  (book) => book.id === bookId,
+export const selectAllBooksIds = (state) => state.books.books.itemIds;
+
+export const selectBookByIdFromLocalStorage = (state, bookId) => {
+  const storedBooks = JSON.parse(localStorage.getItem((state.books)));
+  return storedBooks.find((book) => book.id === bookId);
+};
+
+export const selectBookByTitle = (state, bookTitle) => state.books.books.find(
+  (book) => book.title === bookTitle,
 );
 
+export const selectBookById = (state, bookId) => state.books.books[bookId];
+
 export const selectBooksByCategory = createSelector(
-  // 1) find the category of the book in an array???
   [selectAllBooks, (_, categoryId) => categoryId],
-  // 2) find all the books of this category
   (books, categoryId) => books.filter((book) => book.categoryId === categoryId),
 );
 

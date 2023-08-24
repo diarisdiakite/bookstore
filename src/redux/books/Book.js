@@ -9,7 +9,6 @@ function Book() {
   const dispatch = useDispatch();
   const { bookId } = useParams();
   const book = useSelector((state) => selectBookById(state, bookId));
-
   return (
     <div className="main-container">
       <div className="book-card">
