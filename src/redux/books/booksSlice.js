@@ -1,37 +1,32 @@
 import { createSlice, createSelector, createAsyncThunk } from '@reduxjs/toolkit';
-// import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 const appId = 'otpoYVBmSxJWfZGJBIeq';
 export const FEATURE_URL = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appId}/books`;
-/* export const FEATURE_URL_UD = `https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/${appId}/books`;
- */
+
 const initialState = {
-  // loading: false,
   books: {
-    loading: 'false',
+    loading: false,
     itemIds: [],
     byId: {},
     error: '',
   },
   numberOfBooks: 0,
-  // error: '',
 };
-
-/* export const fetchBooks = createAsyncThunk('books/fetchBooks', () => axios
-  .get(FEATURE_URL)
-  .then((response) => response.data));
-  .then((err) => err.message)
-  // console.log(response.data));
-  // .then(); */
 
 export const fetchBooks = createAsyncThunk('books/fetchBooks', async () => {
   try {
-    const response = await axios.get(FEATURE_URL);
-    console.log(response.data);
-    return response.data;
+    const response = await axios.get(FEATURE_URL, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status >= 200 && response.status <= 300) {
+      return (response.data);
+    }
+    throw new Error('Failed to fetch books');
   } catch (err) {
-    return err.message;
+    throw new Error(err.message);
   }
 });
 
@@ -46,6 +41,10 @@ export const addNewBook = createAsyncThunk('books/addNewBook', async (bookData) 
       ...bookData,
     };
     const response = await axios.post(FEATURE_URL, newBook);
+    console.log('Response from server:', response);
+    if (!response) {
+      return 'Sorry, could\'t fetch the Data';
+    }
     const bookObject = response.data.reduce((acc, book) => {
       acc[book.id] = book;
       return acc;
@@ -96,11 +95,9 @@ const booksSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBooks.pending, (state) => {
-      state.loading = 'true';
+      state.loading = true;
     });
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      state.loading = 'false';
-      /* state.books = action.payload; */
       const booksArray = Object.values(action.payload).flat();
       const itemIds = Object.keys(action.payload).map(String); // Changed from Number
       console.log('boookArray---------------', booksArray);
@@ -108,17 +105,18 @@ const booksSlice = createSlice({
         itemIds,
         byId: action.payload,
       };
+      state.loading = false;
       state.error = '';
     });
     builder.addCase(fetchBooks.rejected, (state, action) => {
-      state.loading = 'false';
+      state.loading = false;
       state.books = [];
-      state.error = action.payload.message;
+      state.error = action.error ? action.error.message : 'Unknown error occurred';
     });
 
     // addNewBook cases*
     builder.addCase(addNewBook.pending, (state) => {
-      state.loading = 'true';
+      state.loading = true;
     });
     builder.addCase(addNewBook.fulfilled, (state, action) => {
       const { id, ...bookData } = action.payload;
@@ -130,13 +128,13 @@ const booksSlice = createSlice({
       state.error = '';
     });
     builder.addCase(addNewBook.rejected, (state, action) => {
-      state.loading = 'false';
+      state.loading = false;
       state.books = action.payload;
       state.error = action.payload.message;
     });
     // deleteBook cases:pending, fulfilled, rejected
     builder.addCase(deleteBook.pending, (state) => {
-      state.loading = 'true';
+      state.loading = true;
     });
     builder.addCase(deleteBook.fulfilled, (state, action) => {
       const idToRemove = action.payload;
@@ -146,7 +144,7 @@ const booksSlice = createSlice({
       state.error = '';
     });
     builder.addCase(deleteBook.rejected, (state, action) => {
-      state.loading = 'false';
+      state.loading = false;
       state.books = action.payload;
       state.error = action.payload.message;
     });
@@ -156,12 +154,6 @@ const booksSlice = createSlice({
 export const selectAllBooks = (state) => state.books.books.byId;
 
 export const selectAllBooksIds = (state) => state.books.books.itemIds;
-
-/*
-export const selectBookById = (state, bookId) => state.books.books.find(
-  (book) => book.id === bookId,
-);
-*/
 
 export const selectBookByIdFromLocalStorage = (state, bookId) => {
   const storedBooks = JSON.parse(localStorage.getItem((state.books)));
@@ -179,7 +171,7 @@ export const selectBooksByCategory = createSelector(
   // 1) find the category of the book in an array???
   [selectAllBooks, (_, categoryId) => categoryId],
   // 2) find all the books of this category
-  (books, categoryId) => books.byId.filter((book) => book.categoryId === categoryId),
+  (books, categoryId) => books.filter((book) => book.categoryId === categoryId),
 );
 
 export const { addBook, removeBook, updateBook } = booksSlice.actions;

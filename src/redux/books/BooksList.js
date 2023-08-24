@@ -1,8 +1,5 @@
 import React, { useEffect } from 'react';
-// import { nanoid } from '@reduxjs/toolkit';
-// import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import {
   selectAllBooks,
   selectAllBooksIds,
@@ -21,7 +18,6 @@ function BooksList() {
 
   const books = useSelector(selectAllBooks);
   console.log('books with selectAllBooks', books);
-  /*  console.log('booksLength', books.length); */
   const bookIds = useSelector(selectAllBooksIds);
   console.log('booksIds with selectAllBooksIds', bookIds);
 
@@ -31,38 +27,35 @@ function BooksList() {
     dispatch(updateBook({ bookId: id, updateBookData: updatedBookData }));
   };
 
+  if (!bookIds || bookIds.length === 0) {
+    return (
+      <div>
+        <p className="main-container">No book found</p>
+        <AddNewBookForm />
+      </div>
+    );
+  }
   return (
-    <div className="main-container">
-      <h2>
-        Books (
-        {Object.keys(books).length}
-        )
-      </h2>
-      <Link to="/books/new">Add a new Book</Link>
-      {/* { books.loading && <p>...loading</p> }
+    <div className="">
+      {' '}
+      {/* main-container */}
+      { books.loading && <p>...loading</p> }
       { !books.loading && books.error ? (
         <p>
           Error:
           {books.error}
         </p>
       ) : null }
-      { !books.loading && books.length ? (
+      { !books.loading && Object.keys(books).length ? (
         <BooksListElements
           books={books}
           bookIds={bookIds}
           HandleDelete={HandleDelete}
           HandleUpdate={HandleUpdate}
         />
-      ) : null} */}
+      ) : null}
       ;
-      <BooksListElements
-        books={books}
-        bookIds={bookIds}
-        HandleDelete={HandleDelete}
-        HandleUpdate={HandleUpdate}
-      />
       <div>
-        {/* <Link to="/books/new">Add a new Book</Link> */}
         <AddNewBookForm />
       </div>
       <hr />
