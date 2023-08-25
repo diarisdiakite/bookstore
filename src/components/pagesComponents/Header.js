@@ -1,9 +1,10 @@
 import React from 'react';
-import '../../assets/css/navBar.css';
 import { useSelector } from 'react-redux';
+import { BsPersonCircle } from 'react-icons/bs';
 import { NavLink } from 'react-router-dom';
 import { selectAllBooksIds } from '../../redux/books/booksSlice';
 import { selectAllCategories } from '../../redux/categories/categoriesSlice';
+import classes from '../../assets/css/header.module.scss';
 
 function Header() {
   const books = useSelector(selectAllBooksIds);
@@ -13,33 +14,32 @@ function Header() {
   const categoriesLength = categories.length || 0;
 
   return (
-    <div className="header-container">
-      <div className="header">
-        <h1 className="title">Bookstore CMS</h1>
-        <nav>
-          <ul className="nav-container">
-            <li className="nav-item">
-              <NavLink to="/" className="nav-link">Home</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/books" className="nav-link">
-                Books
-                (
-                <span>{booksLength}</span>
-                )
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink to="/categories" className="nav-link">
-                Categories (
-                <span>{categoriesLength}</span>
-                )
-              </NavLink>
-            </li>
-          </ul>
+    <header className={classes.header}>
+      <div className={classes.header__content}>
+        <h1 className={classes.header__content__title}>
+          Bookstore
+          <span className={classes.hidden}>.</span>
+          <span>CMS</span>
+        </h1>
+        <nav className={classes.header__content__nav}>
+          <NavLink to="/" className={classes.header__content__nav.navLink}>Home</NavLink>
+          <NavLink to="/books" className={classes.header__content__nav.navLink}>
+            Books
+            (
+            <span>{booksLength}</span>
+            )
+          </NavLink>
+          <NavLink to="/categories" className={classes.NavLink}>
+            Categories (
+            <span>{categoriesLength}</span>
+            )
+          </NavLink>
         </nav>
+        <div className={classes.header__content__user}>
+          <BsPersonCircle />
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
 
