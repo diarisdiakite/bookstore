@@ -7,11 +7,6 @@
   padding: 1.438rem 6.188rem 1.688rem 6.25rem;
   background-color: var(--white);
   display: flex;
-
-  @include breakpoint(md) {
-    padding: 0 3rem;
-  }
-
   transition: 0.5s ease all;
 
   .hidden {
@@ -30,7 +25,6 @@
       width: 25rem;
       height: 2.313rem;
       margin: 0.375rem 2.938rem 0.125rem 0;
-      font-family: Montserrat;
       font-size: 1.875rem;
       font-weight: bold;
       font-stretch: normal;

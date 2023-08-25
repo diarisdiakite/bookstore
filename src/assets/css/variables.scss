@@ -4,6 +4,7 @@
 // Font
 $RobotoSlab: 'Roboto Slab', serif;
 $Monserrat: 'Montserrat', sans-serif;
+$point: md;
 
 // Colors
 $lightGray: #e8e8e8;
@@ -15,11 +16,3 @@ $blue: #0290ff;
 // Spacing;
 $spacing-medium: 1rem;
 $spacing-large: 1.5rem;
-
-@mixin breakpoint($point) {
-  @if $point == md {
-    @media (min-width: 48cm) {
-      @content;
-    }
-  }
-}

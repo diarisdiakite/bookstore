@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { deleteBook } from '../booksSlice';
+import { deleteBook, selectAllBooksIds } from '../booksSlice';
 import classes from '../../../assets/css/books.module.scss';
 import Completed from './Completed';
 import Current from './Current';
@@ -19,25 +19,27 @@ function BooksListElements({ books }) {
       },
     }));
   }; */
+  const booksIds = useSelector(selectAllBooksIds);
+  console.log(booksIds);
 
-  const [readingDetailsState, setReadingDetailsState] = useState({
+  const [readingDetails, setReadingDetails] = useState({
     currentChapter: '',
     percentageCompleted: 0,
   });
 
-  const setReadingDetails = (bookId) => {
-    if (bookId === Object.entries(books)[0].id) {
-      setReadingDetailsState({
+  const updateReadingDetails = (bookId) => {
+    if (bookId === booksIds[0]) {
+      setReadingDetails({
         currentChapter: 'Chapter 17',
         percentageCompleted: 64,
       });
-    } else if (bookId === Object.entries(books)[1].id) {
-      setReadingDetailsState({
+    } else if (bookId === booksIds[1]) {
+      setReadingDetails({
         currentChapter: 'Chapter 13: "A lesson learned"',
         percentageCompleted: 8,
       });
     } else {
-      setReadingDetailsState({
+      setReadingDetails({
         currentChapter: 'Introduction',
         percentageCompleted: 0,
       });
@@ -78,15 +80,15 @@ function BooksListElements({ books }) {
             <div className={classes.books__bookCard__book__completed}>
               <Completed
                 bookId={bookId}
-                readingDetails={readingDetailsState}
-                setReadingDetails={() => setReadingDetails(bookId)}
+                readingDetails={readingDetails}
+                setReadingDetails={updateReadingDetails}
               />
             </div>
             <div className={classes.books__bookCard__book__currentChapter}>
               <Current
                 bookId={bookId}
-                readingDetails={readingDetailsState}
-                setReadingDetails={() => setReadingDetails(bookId)}
+                readingDetails={readingDetails}
+                setReadingDetails={updateReadingDetails}
               />
             </div>
           </div>
@@ -102,6 +104,7 @@ BooksListElements.propTypes = {
     itemIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     byId: PropTypes.objectOf(
       PropTypes.shape({
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         author: PropTypes.string,
         category: PropTypes.string.isRequired,

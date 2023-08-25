@@ -13,8 +13,7 @@ const Completed = ({ readingDetails }) => (
     </div>
     <div className="">
       <h3 className={classes.books__bookCard__completed__textPercentage}>
-        {readingDetails.percentageCompleted}
-        %
+        64%
       </h3>
       <span className={classes.books__bookCard__completed__textCompleted}>Completed</span>
     </div>

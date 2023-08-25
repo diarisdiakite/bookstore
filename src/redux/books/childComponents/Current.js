@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 // import { useState } from 'react';
 import classes from '../../../assets/css/books.module.scss';
 
-const Current = ({ readingDetails }) => (
+const Current = () => (
   <div>
     <h3 className={classes.books__bookCard__currentChapter__textCurrent}>
       CURRENT CHAPTER
     </h3>
     <h3 className={classes.books__bookCard__currentChapter__textCurrent}>
-      {readingDetails.currentChapter}
+      Chapter 3
     </h3>
     <button
       type="button"
