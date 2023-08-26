@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { useNavigate } from 'react-router-dom';
 import { addNewBook } from './booksSlice';
+import classes from '../../assets/css/books.module.scss';
 
 function AddNewBookForm() {
   const dispatch = useDispatch();
@@ -34,9 +35,9 @@ function AddNewBookForm() {
   };
 
   return (
-    <div className="main-container">
-      <h2>Add a New Book </h2>
-      <form action="" className="add-book-form">
+    <div className={classes.addBookForm}>
+      <h2 className={classes.addBookForm__formTitle}>Add New Book </h2>
+      <form action="" className="">
 
         <input
           type="hidden"
@@ -45,7 +46,7 @@ function AddNewBookForm() {
         />
 
         <input
-          className="form-title"
+          className={classes.addBookForm__bookTitle}
           type="text"
           name="title"
           value={newBook.title}
@@ -55,7 +56,7 @@ function AddNewBookForm() {
         />
 
         <input
-          className="form-category"
+          className={classes.addBookForm__bookCategory}
           type="text"
           name="category"
           value={newBook.category}
@@ -64,8 +65,8 @@ function AddNewBookForm() {
         />
 
         <input
-          className="form-category"
-          type="text"
+          className={classes.addBookForm__bookCategory}
+          type="hidden"
           name="author"
           value={newBook.author}
           onChange={HandleInputChange}
@@ -74,10 +75,10 @@ function AddNewBookForm() {
 
         <button
           type="button"
-          className="form-button"
+          className={classes.addBookForm__addButton}
           onClick={HandleSubmit}
         >
-          Submit
+          ADD BOOK
         </button>
 
       </form>

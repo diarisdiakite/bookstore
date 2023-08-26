@@ -9,6 +9,8 @@ import {
 } from './booksSlice';
 import BooksListElements from './childComponents/BooksListElements';
 import AddNewBookForm from './AddNewBookForm';
+// import '../../assets/css/books.scss';
+import classes from '../../assets/css/books.module.scss';
 
 function BooksList() {
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ function BooksList() {
     );
   }
   return (
-    <div className="">
+    <div className={classes.books}>
       {' '}
       { books.loading && <p>...loading</p> }
       { !books.loading && books.error ? (
