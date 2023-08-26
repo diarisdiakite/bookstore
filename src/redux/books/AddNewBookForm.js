@@ -66,7 +66,7 @@ function AddNewBookForm() {
 
         <input
           className={classes.addBookForm__bookCategory}
-          type="text"
+          type="hidden"
           name="author"
           value={newBook.author}
           onChange={HandleInputChange}
