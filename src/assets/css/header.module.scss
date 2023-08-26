@@ -1,11 +1,11 @@
 @import "./variables.scss";
 
 .header {
-  width: 100vw;
+  width: 87.5rem;
   height: 5.938rem;
-  margin: 0 0 0.375rem;
+  margin: 0 0 2.375rem;
   padding: 1.438rem 6.188rem 1.688rem 6.25rem;
-  background-color: var(--white);
+  background-color: var(--white-two);
   display: flex;
   transition: 0.5s ease all;
 
@@ -68,9 +68,9 @@
     }
 
     &__user {
-      width: 4.813rem;
-      height: 4.813rem;
-      margin: 0 0 0 51.5rem;
+      width: 2.813rem;
+      height: 2.813rem;
+      margin: 0 0 0 41.5rem;
       padding: 0.875rem;
       border: solid 1px var(--white-three);
       color: $blue;
